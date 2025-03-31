@@ -1,0 +1,33 @@
+# $ python3
+# >>> import emehcs
+# >>> import importlib
+# >>> importlib.reload(emehcs)
+
+# print(eval([3, 5, '+']))
+# print(eval([[3, 5, '+'], 10, '+']))
+# print(eval([['=x', [['x', 1, '+'], 'g'], 'x', ['x', 500, 'eq'],'?'], '>g', 0, 'g']))
+# print(eval(
+#   [['=n', '=a0', '=a1', ['a0', 'a1', '+'], '=b',
+#     ['b', 'a1', ['n', -1, '+'], 'fib'], 'a1', ['n', 1, 'eq'], '?'], '>fib', 1, 0, 12, 'fib']))
+# print(eval([True]))
+# print(eval([]))
+
+# print(run(
+#   [['=out', '=x',
+#      [['@zun', '@doko', ':q'], 'sample'], '=which',
+#      ['out', '@zun',        'cons'], '=z',
+#      ['out', '@doko',       'cons'], '=d',
+#      ['d',   '@ki_yo_shi!', 'cons'], '=k',
+#      [[0, 'd', 'zdk'], 'k', [3, 'x', '<'], '?'],
+#      [[['x', 1, '+'], 'z', 'zdk'], ['which', '@zun', 'eq'], '?']], '>zdk', 0, [':q'], 'zdk']))
+
+# print('[Ctrl+D]で終了')
+# try:
+#   while True:
+#     print('emehcs> ', end='')
+#     inp = input()
+#     out = eval(inp)
+#     print(out)
+# except EOFError:
+#   print('\nbye!')
+#   pass
