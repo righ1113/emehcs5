@@ -2,7 +2,7 @@
 
 import sys
 from typing import TypeAlias
-import lib.base
+import lib.primitive
 import lib.parse
 
 sys.setrecursionlimit(1_000_000)
@@ -22,7 +22,7 @@ def run(code: list[Expr]) -> Expr:
       case int() | bool(): stack.append(x) # type: ignore
       case list():         stack.append(islist_run(x, em))
       case str():
-        if   x in lib.base.prim_funcs.keys(): lib.base.prim_funcs[x](run, stack)
+        if   x in lib.primitive.funcs.keys(): lib.primitive.funcs[x](run, stack)
         elif x[0]  == '=':                    env[x[1:]] = islist_run(stack.pop(), True)
         elif x[0]  == '>':                    env[x[1:]] = islist_run(stack.pop(), False)
         elif x[-1] == '@':                    stack.append(x)                      # 純粋文字列

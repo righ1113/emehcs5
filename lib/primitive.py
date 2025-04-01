@@ -71,7 +71,7 @@ def hundle_chr(run: Callable[[list[Expr]], Expr], stack: list[Expr]):
   ret = run([stack.pop()])
   stack.append(chr(ret)) # type: ignore
 
-prim_funcs = {
+funcs = {
   '+':      hundle_plus,
   '-':      hundle_minus,
   'eq':     hundle_eq,
