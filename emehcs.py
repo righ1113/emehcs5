@@ -7,33 +7,31 @@ import lib.parse
 
 sys.setrecursionlimit(1_000_000)
 
-Expr:      TypeAlias = int | bool | str | list['Expr']
-stack:    list[Expr] = []
-env: dict[str, Expr] = {}
+Expr: TypeAlias = int | bool | str | list['Expr']
 
 class Emehcs:
   def __init__(self):
-    pass # self.code = code
+    self.stack:    list[Expr] = [] # type: ignore
+    self.env: dict[str, Expr] = {} # type: ignore
   def run(self, code: list[Expr]) -> Expr:
     def islist_run(y: Expr, em: bool) -> Expr:
       return self.run(y) if em and type(y) == list and (y[-1] != ':q') else y
-    global stack, env
     for idx, x in enumerate(code):
       em = idx == (len(code) - 1)
       # if x == '+@' or x == '-@': print(f'{idx=}, {x=}')
       match x:
-        case int() | bool(): stack.append(x) # type: ignore
-        case list():         stack.append(islist_run(x, em))
+        case int() | bool(): self.stack.append(x) # type: ignore
+        case list():         self.stack.append(islist_run(x, em))
         case str():
-          if   x in lib.primitive.funcs.keys(): lib.primitive.funcs[x](self.run, stack)
-          elif x[0]  == '=':                    env[x[1:]] = islist_run(stack.pop(), True)
-          elif x[0]  == '>':                    env[x[1:]] = islist_run(stack.pop(), False)
-          elif x[-1] == '@':                    stack.append(x)                      # 純粋文字列
-          elif isinstance(env[x], list):        stack.append(islist_run(env[x], em)) # 関数を参照している場合
-          else:                                 stack.append(env[x])                 # 変数
+          if   x in lib.primitive.funcs.keys(): lib.primitive.funcs[x](self.run, self.stack)
+          elif x[0]  == '=':                    self.env[x[1:]] = islist_run(self.stack.pop(), True)
+          elif x[0]  == '>':                    self.env[x[1:]] = islist_run(self.stack.pop(), False)
+          elif x[-1] == '@':                    self.stack.append(x)                           # 純粋文字列
+          elif isinstance(self.env[x], list):   self.stack.append(islist_run(self.env[x], em)) # 関数を参照している場合
+          else:                                 self.stack.append(self.env[x])                 # 変数
         case _:
           raise ValueError(f'Unsupported type: {type(x)}')
-    return stack.pop()
+    return self.stack.pop()
 
 if __name__ == '__main__':
   emehcs = Emehcs()
