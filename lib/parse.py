@@ -1,5 +1,4 @@
-from typing import Any
-from typing import TypeAlias
+from typing import Any, TypeAlias
 import re
 
 Expr: TypeAlias = int | bool | str | list['Expr']
