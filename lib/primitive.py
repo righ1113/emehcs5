@@ -1,5 +1,6 @@
 import random
 from typing import Callable, TypeAlias
+# from emehcs import Emehcs
 
 Expr: TypeAlias = int | bool | str | list['Expr']
 
