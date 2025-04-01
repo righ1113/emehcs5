@@ -19,7 +19,7 @@ def run(code: list[Expr]) -> Expr:
     em = idx == (len(code) - 1)
     # if x == '+@' or x == '-@': print(f'{idx=}, {x=}')
     match x:
-      case int() | bool(): stack.append(x)
+      case int() | bool(): stack.append(x) # type: ignore
       case list():         stack.append(islist_run(x, em))
       case str():
         if   x in lib.base.prim_funcs.keys(): lib.base.prim_funcs[x](run, stack)

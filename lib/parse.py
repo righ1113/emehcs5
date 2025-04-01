@@ -29,7 +29,8 @@ def run_before(str0: str) -> list[Expr]:
                   return run_before_sub(xs, acc + [-int(x[1:])])
                 else:
                   return run_before_sub(xs, acc + [x])
-    raise ValueError('not match')
+      case _:
+        raise ValueError('not match')
   str1 = re.sub(r';.*', '', str0)                     # コメント削除
   str2 = str1.replace('[]', '(:q)')                   # 空リストを変換
   str3 = str2.replace('[', '(') .replace(']', ' :q)') # 括弧変換
