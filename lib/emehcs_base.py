@@ -5,9 +5,9 @@ Expr: TypeAlias = int | bool | str | list['Expr']
 
 class EmehcsBase:
   def __init__(self):
-    self.stack:           list[Expr] = [] # type: ignore
-    self.env:        dict[str, Expr] = {} # type: ignore
-    self.prim_funcs: dict[str, Callable[[], None]] = { # type: ignore
+    self.stack:           list[Expr] = []
+    self.env:        dict[str, Expr] = {}
+    self.prim_funcs: dict[str, Callable[[], None]] = {
       '+':      self.hundle_plus,
       '-':      self.hundle_minus,
       'eq':     self.hundle_eq,
