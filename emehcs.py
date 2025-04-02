@@ -1,19 +1,16 @@
 # $ python3 emehcs.py
 
 import sys
-from typing import TypeAlias
-import lib.primitive
+from typing          import TypeAlias
+from lib.emehcs_base import EmehcsBase
 import lib.parse
 
 sys.setrecursionlimit(1_000_000)
 
 Expr: TypeAlias = int | bool | str | list['Expr']
 
-class Emehcs:
-  def __init__(self):
-    self.stack:    list[Expr] = []                            # type: ignore
-    self.env: dict[str, Expr] = {}                            # type: ignore
-    self.prim                 = lib.primitive.Primitive(self) # type: ignore # インスタンスを生成
+class Emehcs(EmehcsBase):
+  # やっぱ継承だよね
   def run(self, code: list[Expr]) -> Expr:
     def islist_run(y: Expr, em: bool) -> Expr:
       return self.run(y) if em and type(y) == list and (y[-1] != ':q') else y
@@ -24,7 +21,7 @@ class Emehcs:
         case int() | bool(): self.stack.append(x) # type: ignore
         case list():         self.stack.append(islist_run(x, em))
         case str():
-          if   x in self.prim.funcs.keys():   self.prim.funcs[x](self.prim)
+          if   x in self.prim_funcs.keys():   self.prim_funcs[x]()
           elif x[0]  == '=':                  self.env[x[1:]] = islist_run(self.stack.pop(), True)
           elif x[0]  == '>':                  self.env[x[1:]] = islist_run(self.stack.pop(), False)
           elif x[-1] == '@':                  self.stack.append(x)                           # 純粋文字列
