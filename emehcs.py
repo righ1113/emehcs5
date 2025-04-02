@@ -18,7 +18,7 @@ class Emehcs(EmehcsBase):
       em = idx == (len(code) - 1)
       # if x == '+@' or x == '-@': print(f'{idx=}, {x=}')
       match x:
-        case int() | bool(): self.stack.append(x) # type: ignore
+        case bool() | int(): self.stack.append(x)
         case list():         self.stack.append(islist_run(x, em))
         case str():
           if   x in self.prim_funcs.keys():   self.prim_funcs[x]()
