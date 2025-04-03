@@ -1,12 +1,11 @@
+import lib.const
 import random
-from typing import Callable, TypeAlias
-
-Expr: TypeAlias = int | bool | str | list['Expr']
+from typing import Callable
 
 class EmehcsBase:
   def __init__(self):
-    self.stack:           list[Expr] = []
-    self.env:        dict[str, Expr] = {}
+    self.stack:           list[lib.const.Expr] = []
+    self.env:        dict[str, lib.const.Expr] = {}
     self.prim_funcs: dict[str, Callable[[], None]] = {
       '+':      self.hundle_plus,
       '-':      self.hundle_minus,
@@ -22,7 +21,7 @@ class EmehcsBase:
       'up_p':   self.hundle_up_p,
       'length': self.hundle_length,
       'chr':    self.hundle_chr,    }
-  def run(self, code: list[Expr]) -> Expr:
+  def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     return 1 if not code else code[0]
   # プリミティブ関数と run() は相互に呼び合っている
   def hundle_plus(self):

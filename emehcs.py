@@ -1,22 +1,17 @@
 # $ python3 emehcs.py
 
-import sys
-from typing          import TypeAlias
-from lib.emehcs_base import EmehcsBase
+import lib.const
 import lib.parse
+from lib.emehcs_base import EmehcsBase
 
-sys.setrecursionlimit(1_000_000)
-
-Expr: TypeAlias = int | bool | str | list['Expr']
-
+# やっぱ継承だよね
 class Emehcs(EmehcsBase):
-  # やっぱ継承だよね
-  def run(self, code: list[Expr]) -> Expr:
-    def islist_run(y: Expr, em: bool) -> Expr:
+  def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
+    def islist_run(y: lib.const.Expr, em: bool) -> lib.const.Expr:
       return self.run(y) if em and type(y) == list and (y[-1] != ':q') else y
     for idx, x in enumerate(code):
       em = idx == (len(code) - 1)
-      # if x == '+@' or x == '-@': print(f'{idx=}, {x=}')
+      if lib.const.debug_flg and (x == '+@' or x == '-@'): print(f'{idx=}, {x=}')
       match x:
         case bool() | int(): self.stack.append(x)
         case list():         self.stack.append(islist_run(x, em))
