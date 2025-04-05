@@ -8,7 +8,7 @@ from lib.emehcs_base import EmehcsBase
 class Emehcs(EmehcsBase):
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     def islist_run(y: lib.const.Expr, em: bool) -> lib.const.Expr:
-      return self.run(y) if em and type(y) == list and (y[-1] != ':q') else y
+      return Emehcs(self.stack, self.env).run(y) if em and type(y) == list and not (not y or (y[-1] == ':q')) else y
     for idx, x in enumerate(code):
       em = idx == (len(code) - 1)
       if lib.const.debug_flg and (x == '+@' or x == '-@'): print(f'{idx=}, {x=}')
@@ -28,9 +28,14 @@ class Emehcs(EmehcsBase):
 
 if __name__ == '__main__':
   emehcs = Emehcs()
-  print(emehcs.run(lib.parse.run_before(
-    '(=x ((x 1 +) rec) x (x 100 eq) ?) >rec 0 rec')))
+  # print(emehcs.run(lib.parse.run_before(
+  #   '(=x ((x 1 +) rec) x (x 100 eq) ?) >rec 0 rec')))
 
-  with open('./sample/bf.eme', encoding='UTF-8') as f:
+  # with open('./sample/bf.eme', encoding='UTF-8') as f:
+  #   text = f.read()
+  # print(emehcs.run(lib.parse.run_before(text)))
+
+  with open('./sample/emehcs.eme', encoding='UTF-8') as f:
     text = f.read()
   print(emehcs.run(lib.parse.run_before(text)))
+  print(emehcs.stack2)
