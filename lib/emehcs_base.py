@@ -6,7 +6,7 @@ class EmehcsBase:
   def __init__(self, keep: list[lib.const.Expr] = [], keep_d: dict[str, lib.const.Expr] = {}):
     self.stack:               list[lib.const.Expr] = keep
     self.env:            dict[str, lib.const.Expr] = keep_d
-    self.stack2:              list[lib.const.Expr] = [9999]
+    self.stack2:              list[lib.const.Expr] = []
     self.env2:           dict[str, lib.const.Expr] = {}
     self.prim_funcs: dict[str, Callable[[], None]] = {
       '+':       self.hundle_plus,
@@ -103,17 +103,17 @@ class EmehcsBase:
     ret = self.run([self.stack.pop()])
     self.stack.append(chr(ret)) # type: ignore
   def my_push(self):
-    ret = self.run([self.stack2.pop()])
+    ret = self.run([self.stack.pop()])
     self.stack2.append(ret)
   def my_pop(self):
     ret = self.run([self.stack2.pop()])
-    self.stack2.append(ret)
+    self.stack.append(ret)
   def my_pop_l(self):
     ret = self.run([self.stack2.pop()])
     if type(ret) is list:
-      self.stack2.append(ret)
+      self.stack.append(ret)
     else:
-      self.stack2.append([ret, ':q'])
+      self.stack.append([ret, ':q'])
   def my_get_env(self):
     ret = self.run([self.stack2.pop()])
     self.stack2.append(self.env2[ret]) # type: ignore
@@ -131,9 +131,12 @@ class EmehcsBase:
     ret = self.run([self.stack2.pop()])
     self.stack2.append(isinstance(ret, list))
   def hundle_car(self):
-    print(f'{self.stack=}\n{self.stack2=}\n{self.env2=}')
+    # print(f'{self.stack=}\n{self.stack2=}\n{self.env2=}')
     ret = self.run([self.stack.pop()])
-    self.stack.append(ret[0]) # type: ignore
+    if not ret:
+      pass
+    else:
+      self.stack.append(ret[0]) # type: ignore
   def hundle_cdr(self):
     ret = self.run([self.stack.pop()])
     self.stack.append(ret[1:]) # type: ignore

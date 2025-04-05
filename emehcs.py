@@ -8,7 +8,11 @@ from lib.emehcs_base import EmehcsBase
 class Emehcs(EmehcsBase):
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     def islist_run(y: lib.const.Expr, em: bool) -> lib.const.Expr:
-      return Emehcs(self.stack, self.env).run(y) if em and type(y) == list and not (not y or (y[-1] == ':q')) else y
+      if em and type(y) == list and not (not y or (y[-1] == ':q')):
+        e = Emehcs(self.stack, self.env)
+        return e.run(y)
+      else:
+        return y
     for idx, x in enumerate(code):
       em = idx == (len(code) - 1)
       if lib.const.debug_flg and (x == '+@' or x == '-@'): print(f'{idx=}, {x=}')
@@ -38,4 +42,4 @@ if __name__ == '__main__':
   with open('./sample/emehcs.eme', encoding='UTF-8') as f:
     text = f.read()
   print(emehcs.run(lib.parse.run_before(text)))
-  print(emehcs.stack2)
+  # print(emehcs.stack2)
