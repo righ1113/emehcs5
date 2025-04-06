@@ -150,6 +150,6 @@ class EmehcsBase:
   def hundle_exit(self):
     ret = self.env['code']
     if ret == []:
-      raise ValueError(f'end. {self.stack.pop()}')
+      self.stack.append(True)
     else:
       self.stack.append(False)
