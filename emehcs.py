@@ -26,7 +26,8 @@ class Emehcs(EmehcsBase):
           elif x[0]  == '&':
             e = Emehcs(self.stack, self.env, self.stack2, self.env2)
             return e.run([x[1:]])
-          elif x     == ':q':                 pass                           # 終了
+          elif x     == ':q':
+            pass                           # 終了
           elif x[-1] == '@':                  self.stack.append(x)                           # 純粋文字列
           elif isinstance(self.env[x], list): self.stack.append(islist_run(self.env[x], em)) # 関数を参照している場合
           else:                               self.stack.append(self.env[x])                 # 変数

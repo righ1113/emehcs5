@@ -36,7 +36,8 @@ class EmehcsBase:
       'bool?':   self.is_bool,
       'list?':   self.is_list,
       'car':     self.hundle_car,
-      'cdr':     self.hundle_cdr,     }
+      'cdr':     self.hundle_cdr,
+      'exit?':   self.hundle_exit,     }
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     return 1 if not code else code[0]
   # プリミティブ関数と run() は相互に呼び合っている
@@ -146,3 +147,9 @@ class EmehcsBase:
   def hundle_cdr(self):
     ret = self.run([self.stack.pop()])
     self.stack.append(ret[1:]) # type: ignore
+  def hundle_exit(self):
+    ret = self.env['code']
+    if ret == []:
+      raise ValueError(f'end. {self.stack.pop()}')
+    else:
+      self.stack.append(False)

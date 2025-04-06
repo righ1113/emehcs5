@@ -1,28 +1,28 @@
 ; 変数のスコープを付けなくてはならない事が分かった -> しかし再帰でじゃんじゃん増えてしまう
-((pop) =y1 (pop) =y2 ((y2 y1 +) push)) >plus
+((pop_l &emehcs) =y1 (pop_l &emehcs) =y2 ((y2 y1 +) push)) >plus
 ((pop_l &emehcs) =y1 (pop_l &emehcs) =y2 ((y2 y1 -) push)) >minus
 ((pop_l &emehcs) =y1 (pop_l &emehcs) =y2 ((y2 y1 eq) push)) >eqe
 ((pop_l &emehcs) >y1 (pop_l &emehcs) >y2 (pop_l emehcs) >y3 (y3 push) (y2 push) (y1 true eq) ?) >ife
 
 (=code
   (=y =em (y push) ((y emehcs) push) (em true eq) ?) >h_list
-    (code car) >x (code cdr) >xs (x car) >xf (x cdr) >name
-      (xs [] eq) >em
+    (code car) =x (code cdr) =xs (x car) >xf (x cdr) >name
+      (xs [] eq) =em
         (xs emehcs) >^
         ; ("Unsupported type" error)
-          (((x env) push) =_ ^)
-            (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
-            (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
-            (((name pop set_env) =_ ^)            (xf ">" eq) ?)
-              ((ife =_ ^)   (x "?" eq) ?)
-              ((eqe =_ ^)   (x "eqe" eq) ?)
-              ((minus =_ ^) (x "-" eq) ?)
+          ^ ; (((x env) push) =_ ^)
+          ;   (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
+          ;   (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
+          ;   (((name pop set_env) =_ ^)            (xf ">" eq) ?)
+          ;     ((ife =_ ^)   (x "?" eq) ?)
+          ;     ((eqe =_ ^)   (x "eqe" eq) ?)
+          ;     ((minus =_ ^) (x "-" eq) ?)
               ((plus =_ ^)  (x "+" eq) ?)
                 ; (push (x str) ?)
                 (((em x h_list) =_ ^) (x list?) ?)
                 (((x push) =_ ^)      (x bool?) ?)
                 (((x push) =_ ^)       (x int?) ?)
-                  ((pop) (code [] eq) ?)) >emehcs
+                  ((pop) (exit?) ?)) >emehcs
 ; [[=n =a0 =a1 [a0 a1 +] =b [b a1 [n 1 -] fib] a1 [n 1 eqe] ?] >fib 1 0 12 fib] emehcs
-; [100 7 "+"] emehcs
-[100 [4 3 "+"] "+"] emehcs
+[100 7 "+"] emehcs
+; [100 [4 3 "+"] "+"] emehcs
