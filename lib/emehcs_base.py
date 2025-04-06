@@ -41,8 +41,8 @@ class EmehcsBase:
     return 1 if not code else code[0]
   # プリミティブ関数と run() は相互に呼び合っている
   def hundle_plus(self):
-    ret2 = self.run([self.stack.pop()])
-    ret1 = self.run([self.stack.pop()])
+    ret2 = self.run(lib.const.to_l(self.stack.pop()))
+    ret1 = self.run(lib.const.to_l(self.stack.pop()))
     self.stack.append(ret1 + ret2) # type: ignore
   def hundle_minus(self):
     ret2 = self.run([self.stack.pop()])
