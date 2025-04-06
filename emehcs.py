@@ -9,8 +9,8 @@ class Emehcs(EmehcsBase):
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     def islist_run(y: lib.const.Expr, em: bool) -> lib.const.Expr:
       if em and type(y) == list and not (not y or (y[-1] == ':q')):
-        e = Emehcs(self.stack, self.env, self.stack2, self.env2)
-        return e.run(y)
+        _ = Emehcs(self.stack, self.env, self.stack2, self.env2)
+        return self.run(y)
       else:
         return y
     for idx, x in enumerate(code):
@@ -23,6 +23,9 @@ class Emehcs(EmehcsBase):
           if   x in self.prim_funcs.keys():   self.prim_funcs[x]()
           elif x[0]  == '=':                  self.env[x[1:]] = islist_run(self.stack.pop(), True)
           elif x[0]  == '>':                  self.env[x[1:]] = islist_run(self.stack.pop(), False)
+          elif x[0]  == '&':
+            e = Emehcs(self.stack, self.env, self.stack2, self.env2)
+            return e.run([x[1:]])
           elif x[-1] == '@':                  self.stack.append(x)                           # 純粋文字列
           elif isinstance(self.env[x], list): self.stack.append(islist_run(self.env[x], em)) # 関数を参照している場合
           else:                               self.stack.append(self.env[x])                 # 変数
