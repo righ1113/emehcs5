@@ -10,18 +10,18 @@
       (xs [] eq) >em
         (xs emehcs) >^
         ; ("Unsupported type" error)
-          ^ ;(((x env) push) =_ ^)
-            ; (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
-            ; (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
-            ; (((name pop set_env) =_ ^)            (xf ">" eq) ?)
-            ;   ((ife =_ ^)   (x "?" eq) ?)
-            ;   ((eqe =_ ^)   (x "eqe" eq) ?)
-            ;   ((minus =_ ^) (x "-" eq) ?)
-            ;   ((plus =_ ^)  (x "+" eq) ?)
-            ;     ; (push (x str) ?)
-            ;     (((em x h_list) =_ ^) (x list?) ?)
-            ;     (((x push) =_ ^)      (x bool?) ?)
+          (((x env) push) =_ ^)
+            (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
+            (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
+            (((name pop set_env) =_ ^)            (xf ">" eq) ?)
+              ((ife =_ ^)   (x "?" eq) ?)
+              ((eqe =_ ^)   (x "eqe" eq) ?)
+              ((minus =_ ^) (x "-" eq) ?)
+              ((plus =_ ^)  (x "+" eq) ?)
+                ; (push (x str) ?)
+                (((em x h_list) =_ ^) (x list?) ?)
+                (((x push) =_ ^)      (x bool?) ?)
                 (((x push) =_ ^)       (x int?) ?)
-                  (0 (code [] eq) ?)) >emehcs
+                  ((pop) (code [] eq) ?)) >emehcs
 ; [[=n =a0 =a1 [a0 a1 +] =b [b a1 [n 1 -] fib] a1 [n 1 eqe] ?] >fib 1 0 12 fib] emehcs
-[100] emehcs
+[100 7 "+"] emehcs

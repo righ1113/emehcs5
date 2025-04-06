@@ -9,7 +9,7 @@ class Emehcs(EmehcsBase):
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     def islist_run(y: lib.const.Expr, em: bool) -> lib.const.Expr:
       if em and type(y) == list and not (not y or (y[-1] == ':q')):
-        e = Emehcs(self.stack, self.env)
+        e = Emehcs(self.stack, self.env, self.stack2, self.env2)
         return e.run(y)
       else:
         return y

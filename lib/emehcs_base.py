@@ -3,11 +3,15 @@ import random
 from typing import Callable
 
 class EmehcsBase:
-  def __init__(self, keep: list[lib.const.Expr] = [], keep_d: dict[str, lib.const.Expr] = {}):
+  def __init__(self,
+               keep: list[lib.const.Expr] = [],
+               keep_d: dict[str, lib.const.Expr] = {},
+               keep2: list[lib.const.Expr] = [],
+               keep2_d: dict[str, lib.const.Expr] = {}):
     self.stack:               list[lib.const.Expr] = keep
     self.env:            dict[str, lib.const.Expr] = keep_d
-    self.stack2:              list[lib.const.Expr] = []
-    self.env2:           dict[str, lib.const.Expr] = {}
+    self.stack2:              list[lib.const.Expr] = keep2
+    self.env2:           dict[str, lib.const.Expr] = keep2_d
     self.prim_funcs: dict[str, Callable[[], None]] = {
       '+':       self.hundle_plus,
       '-':       self.hundle_minus,
@@ -122,19 +126,21 @@ class EmehcsBase:
     ret1 = self.run([self.stack2.pop()])
     self.env2[ret2] = ret1 # type: ignore
   def is_int(self):
-    ret = self.run([self.stack2.pop()])
-    self.stack2.append(isinstance(ret, int))
+    ret = self.run([self.stack.pop()])
+    self.stack.append(isinstance(ret, int))
   def is_bool(self):
-    ret = self.run([self.stack2.pop()])
-    self.stack2.append(isinstance(ret, bool))
+    ret = self.run([self.stack.pop()])
+    self.stack.append(isinstance(ret, bool))
   def is_list(self):
-    ret = self.run([self.stack2.pop()])
-    self.stack2.append(isinstance(ret, list))
+    ret = self.run([self.stack.pop()])
+    self.stack.append(isinstance(ret, list))
   def hundle_car(self):
     # print(f'{self.stack=}\n{self.stack2=}\n{self.env2=}')
     ret = self.run([self.stack.pop()])
     if not ret:
       pass
+    elif type(ret) is str:
+      self.stack.append(ret[0] + '@') # type: ignore
     else:
       self.stack.append(ret[0]) # type: ignore
   def hundle_cdr(self):
