@@ -42,8 +42,8 @@ class EmehcsBase:
     return 1 if not code else code[0]
   # プリミティブ関数と run() は相互に呼び合っている
   def hundle_plus(self):
-    ret2 = self.run(lib.const.to_l(self.stack.pop()))
-    ret1 = self.run(lib.const.to_l(self.stack.pop()))
+    ret2 = self.run([self.stack.pop()])
+    ret1 = self.run([self.stack.pop()])
     self.stack.append(ret1 + ret2) # type: ignore
   def hundle_minus(self):
     ret2 = self.run([self.stack.pop()])
@@ -120,11 +120,11 @@ class EmehcsBase:
     else:
       self.stack.append([ret, ':q'])
   def my_get_env(self):
-    ret = self.run([self.stack2.pop()])
-    self.stack2.append(self.env2[ret]) # type: ignore
+    ret = self.run([self.stack.pop()])
+    self.stack.append(self.env2[ret]) # type: ignore
   def my_set_env(self):
-    ret2 = self.run([self.stack2.pop()])
-    ret1 = self.run([self.stack2.pop()])
+    ret2 = self.run([self.stack.pop()])
+    ret1 = self.run([self.stack.pop()])
     self.env2[ret2] = ret1 # type: ignore
   def is_int(self):
     ret = self.run([self.stack.pop()])
