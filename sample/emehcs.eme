@@ -6,13 +6,13 @@
 
 (=code
   (=y =em (y push) ((y emehcs) push) (em true eq) ?) >h_list
-    (code car) >x (code cdr) >xs (x car) >xf (x cdr) >name
+    (code car) =x (code cdr) >xs (x car) >xf (x cdr) >name
       (xs [] eq) >em
         (xs emehcs) >^
         ; ("Unsupported type" error)
-          ^ ; (((x env) push) =_ ^)
-          ;   (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
-          ;   (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
+          (((x env) push) =_ ^)
+            (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
+            (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
             (((name (pop) set_env) =_ ^)            ((x car) ">" eq) ?)
               ((ife =_ ^)   (x "?" eq) ?)
               ((eqe =_ ^)   (x "eqe" eq) ?)
@@ -22,6 +22,7 @@
                 (((em x h_list) =_ ^) (x list?) ?)
                 (((x push) =_ ^)      (x bool?) ?)
                 (((x push) =_ ^)       (x int?) ?)
+                  ((pop) (exit2?) ?)
                   ((pop) (exit?) ?)) >emehcs
 ; [[=n =a0 =a1 [a0 a1 +] =b [b a1 [n 1 -] fib] a1 [n 1 eqe] ?] >fib 1 0 12 fib] emehcs
 ; [100 7 "+"] emehcs
