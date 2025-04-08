@@ -34,3 +34,6 @@ if __name__ == '__main__':
   with open('./sample/bf.eme', encoding='UTF-8') as f:
     text = f.read()
   print(emehcs.run(lib.parse.run_before(text)))
+
+  print(emehcs.run(lib.parse.run_before(
+    '"((=n =a0 =a1 (a0 a1 +) =b (b a1 (n 1 -) fib) a1 (n 1 eq) ?) >fib 1 0 12 fib)" eval')))

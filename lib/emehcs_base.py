@@ -20,7 +20,8 @@ class EmehcsBase:
       '&&':     self.hundle_and,
       'up_p':   self.hundle_up_p,
       'length': self.hundle_length,
-      'chr':    self.hundle_chr,    }
+      'chr':    self.hundle_chr,
+      'eval':   self.hundle_eval,    }
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     return 1 if not code else code[0]
   # プリミティブ関数と run() は相互に呼び合っている
@@ -90,3 +91,8 @@ class EmehcsBase:
   def hundle_chr(self):
     ret = self.run([self.stack.pop()])
     self.stack.append(chr(ret)) # type: ignore
+  def hundle_eval(self):
+    _   = self.stack.pop()
+    ret = self.stack.pop()
+    ret = self.run(ret) # type: ignore
+    self.stack.append(ret)
