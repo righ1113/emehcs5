@@ -12,7 +12,7 @@
         ; ("Unsupported type" error)
           (((x env) push) =_ ^)
             (((em (x get_env) h_list) =_ ^)       ((x get_env) list?) ?)
-            (((name (pop_l emehcs) set_env) =_ ^) (xf "=" eq) ?)
+            ((emehcs name set_env) =_ ^) (xf "=" eq) ?)
             (((name (pop) set_env) =_ ^)            ((x car) ">" eq) ?)
               ((ife =_ ^)   (x "?" eq) ?)
               ((eqe =_ ^)   (x "eqe" eq) ?)
@@ -26,4 +26,4 @@
                   ((pop) (exit?) ?)) >emehcs
 ; [[=n =a0 =a1 [a0 a1 +] =b [b a1 [n 1 -] fib] a1 [n 1 eqe] ?] >fib 1 0 12 fib] emehcs
 ; [100 7 "+"] emehcs
-[100 [4 3 "+"] "+"] emehcs
+[100 "=x" "x" [4 3 "+"] "+"] emehcs

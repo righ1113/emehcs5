@@ -126,7 +126,7 @@ class EmehcsBase:
   def my_set_env(self):
     ret2 = self.run([self.stack.pop()])
     ret1 = self.run([self.stack.pop()])
-    self.env2[ret2] = ret1 # type: ignore
+    self.env2[ret1] = ret2 # type: ignore
   def is_int(self):
     ret = self.run([self.stack.pop()])
     self.stack.append(isinstance(ret, int))
@@ -149,14 +149,16 @@ class EmehcsBase:
     ret = self.run([self.stack.pop()])
     self.stack.append(ret[1:]) # type: ignore
   def hundle_exit(self):
-    ret = self.env['code']
-    if ret == []:
-      self.stack.append(True)
-    else:
-      self.stack.append(False)
+    if 'code' in self.env.keys():
+      ret = self.env['code']
+      if ret == []:
+        self.stack.append(True)
+      else:
+        self.stack.append(False)
   def hundle_exit2(self):
-    ret = self.env['x']
-    if ret == ':q':
-      self.stack.append(True)
-    else:
-      self.stack.append(False)
+    if 'x' in self.env.keys():
+      ret = self.env['x']
+      if ret == ':q':
+        self.stack.append(True)
+      else:
+        self.stack.append(False)
