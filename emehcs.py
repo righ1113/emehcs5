@@ -1,8 +1,8 @@
 # $ python3 emehcs.py
 
 import lib.const
-import lib.parse
-from lib.emehcs_base import EmehcsBase
+from   lib.emehcs_base import EmehcsBase
+from   lib.repl        import Repl
 
 # やっぱ継承だよね
 class Emehcs(EmehcsBase):
@@ -28,12 +28,6 @@ class Emehcs(EmehcsBase):
 
 if __name__ == '__main__':
   emehcs = Emehcs()
-  print(emehcs.run(lib.parse.run_before(
-    '(=x ((x 1 +) rec) x (x 100 eq) ?) >rec 0 rec')))
-
-  with open('./sample/bf.eme', encoding='UTF-8') as f:
-    text = f.read()
-  print(emehcs.run(lib.parse.run_before(text)))
-
-  print(emehcs.run(lib.parse.run_before(
-    '"((=n =a0 =a1 (a0 a1 +) =b (b a1 (n 1 -) fib) a1 (n 1 eq) ?) >fib 1 0 12 fib)" eval')))
+  repl   = Repl(emehcs)
+  repl.prelude()
+  repl.repl()
