@@ -4,16 +4,16 @@ import re
 Expr: TypeAlias = int | bool | str | list['Expr']
 
 def run_before(str0: str) -> list[Expr]:
-  def run_before_sub(data: list[str], acc: list[Expr]) -> tuple[list[Expr], list[str]]:
+  def run_before_sub(data: list[str], acc: list[Expr]) -> tuple[list[str], list[Expr]]:
     match data:
-      case []: return acc, []
+      case []: return [], acc
       case [x, *xs]:
         match x:
           case '(':
-            acc2, xs2 = run_before_sub(xs, [])
+            xs2, acc2 = run_before_sub(xs, [])
             return run_before_sub(xs2, acc + [acc2])
           case ')':
-            return acc, xs
+            return xs, acc
           case _:
             match x:
               case ':q':
@@ -37,4 +37,4 @@ def run_before(str0: str) -> list[Expr]:
   str4 = str3.replace('(', '( ').replace(')', ' )')   # スペース追加
   str5 = str4.replace('\n', ' ').replace('\r', '')    # 改行削除
   str6 = re.sub(r'"([^"]*)"', '\\1@', str5)           # 文字列を変換
-  return run_before_sub(str6.split(), [])[0]
+  return run_before_sub(str6.split(), [])[1]
