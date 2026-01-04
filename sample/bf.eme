@@ -17,7 +17,7 @@
               ^
               ((move_pc2 =pc ^)  ((mem_v 0 !=) (op "}" eq) &&) ?)
                 ((move_pc1 =pc ^)  ((mem_v 0 eq) (op "{" eq) &&) ?)
-                  (((out (mem_v chr) cons) =out ^) (op "." eq)     ?)
+                  ((((mem_v chr) out cons) =out ^) (op "." eq)     ?)
                     (((mem mar -1 up_p)      =mem ^) (op "-" eq)     ?)
                       (((mem mar 1 up_p)       =mem ^) (op "+" eq)     ?)
                         (((mar 1 -)              =mar ^) (op "<" eq)     ?)

@@ -1,12 +1,10 @@
-; ((eq) >==) うまくいかない
-
 (=d =m =x m (x d mod) eq) >modBase
 (0 2 modBase) >even?
 (0 3 modBase) >0mod3?
 (0 5 modBase) >0mod5?
 
 (=out =inp
-  ((inp cdr) (out (inp car) cons) reverse0)
+  ((inp cdr) ((inp car) out cons) reverse0)
     out
       ([] inp eq) ?) >reverse0
 ([] reverse0) >reverse
@@ -14,12 +12,12 @@
 (=out2 >f =inp
   ((inp car) f) >ret
     (inp cdr) =ic
-      (out2 ret cons) >oc
+      (ret out2 cons) >oc
         (ic f oc map0) (out2 reverse) ([] inp eq) ?) >map0
 ([] map0) >map
 
 (=out =start =stop =step
-  (step stop (start step +) (out start cons) cDiff0)
+  (step stop (start step +) (start out cons) cDiff0)
     (out reverse)
       (stop start <) ?) >cDiff0
 ([] cDiff0) >cDiff

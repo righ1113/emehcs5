@@ -62,7 +62,7 @@ class EmehcsBase:
   def hundle_cons(self):
     ret2 = self.run([self.stack.pop()])
     ret1 = self.run([self.stack.pop()])
-    self.stack.append([ret2] + ret1) # type: ignore
+    self.stack.append([ret1] + ret2) # type: ignore
   def hundle_sample(self):
     ret2 = self.run([self.stack.pop()])
     self.stack.append(random.choice(ret2[:-1])) # type: ignore
