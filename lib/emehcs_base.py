@@ -9,9 +9,12 @@ class EmehcsBase:
     self.prim_funcs: dict[str, Callable[[], None]] = {
       '+':      self.hundle_plus,
       '-':      self.hundle_minus,
+      'mod':    self.hundle_mod,
       'eq':     self.hundle_eq,
       '!=':     self.hundle_ne,
       '<':      self.hundle_lt,
+      'car':    self.hundle_car,
+      'cdr':    self.hundle_cdr,
       'cons':   self.hundle_cons,
       'sample': self.hundle_sample,
       '?':      self.hundle_if,
@@ -21,6 +24,7 @@ class EmehcsBase:
       'up_p':   self.hundle_up_p,
       'length': self.hundle_length,
       'chr':    self.hundle_chr,
+      's.++':   self.hundle_plus,
       'eval':   self.hundle_eval,    }
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     return 1 if not code else code[0]
@@ -33,6 +37,10 @@ class EmehcsBase:
     ret2 = self.run([self.stack.pop()])
     ret1 = self.run([self.stack.pop()])
     self.stack.append(ret1 - ret2) # type: ignore
+  def hundle_mod(self):
+    ret2 = self.run([self.stack.pop()])
+    ret1 = self.run([self.stack.pop()])
+    self.stack.append(ret1 % ret2) # type: ignore
   def hundle_eq(self):
     ret2 = self.run([self.stack.pop()])
     ret1 = self.run([self.stack.pop()])
@@ -45,6 +53,12 @@ class EmehcsBase:
     ret2 = self.run([self.stack.pop()])
     ret1 = self.run([self.stack.pop()])
     self.stack.append(ret1 < ret2) # type: ignore
+  def hundle_car(self):
+    ret1 = self.run([self.stack.pop()])
+    self.stack.append(ret1[0]) # type: ignore
+  def hundle_cdr(self):
+    ret1 = self.run([self.stack.pop()])
+    self.stack.append(ret1[1:]) # type: ignore
   def hundle_cons(self):
     ret2 = self.run([self.stack.pop()])
     ret1 = self.run([self.stack.pop()])
