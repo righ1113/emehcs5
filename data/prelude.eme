@@ -8,14 +8,14 @@
 (=out =inp
   ((inp cdr) (out (inp car) cons) reverse0)
     out
-      ([] inp eq)) >reverse0
+      ([] inp eq) ?) >reverse0
 ([] reverse0) >reverse
 
 (=out2 >f =inp
   ((inp car) f) >ret
     (inp cdr) =ic
       (out2 ret cons) >oc
-        (ic f oc map0) (out2 reverse) ([] inp eq)) >map0
+        (ic f oc map0) (out2 reverse) ([] inp eq) ?) >map0
 ([] map0) >map
 
  (=out =start =stop =step
@@ -23,3 +23,5 @@
     (out reverse)
       (stop start <)) >cDiff0
 ([] cDiff0) >cDiff
+
+(1 1 +) ; これは必要
