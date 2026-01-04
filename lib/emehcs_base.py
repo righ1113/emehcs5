@@ -24,7 +24,7 @@ class EmehcsBase:
       'up_p':   self.hundle_up_p,
       'length': self.hundle_length,
       'chr':    self.hundle_chr,
-      's.++':   self.hundle_plus,
+      's.++':   self.hundle_splus,
       'eval':   self.hundle_eval,    }
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
     return 1 if not code else code[0]
@@ -70,6 +70,7 @@ class EmehcsBase:
     ret3 = self.run([self.stack.pop()])
     if ret3:
       ret2 = self.run([self.stack.pop()])
+      self.stack.pop()
       self.stack.append(ret2)
     else:
       self.stack.pop()
@@ -105,6 +106,10 @@ class EmehcsBase:
   def hundle_chr(self):
     ret = self.run([self.stack.pop()])
     self.stack.append(chr(ret)) # type: ignore
+  def hundle_splus(self):
+    ret2 = self.run([self.stack.pop()])
+    ret1 = self.run([self.stack.pop()])
+    self.stack.append(ret1[:-1] + ret2) # type: ignore
   def hundle_eval(self):
     _   = self.stack.pop()
     ret = self.stack.pop()

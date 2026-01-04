@@ -18,10 +18,10 @@
         (ic f oc map0) (out2 reverse) ([] inp eq) ?) >map0
 ([] map0) >map
 
- (=out =start =stop =step
+(=out =start =stop =step
   (step stop (start step +) (out start cons) cDiff0)
     (out reverse)
-      (stop start <)) >cDiff0
+      (stop start <) ?) >cDiff0
 ([] cDiff0) >cDiff
 
 (1 1 +) ; これは必要
