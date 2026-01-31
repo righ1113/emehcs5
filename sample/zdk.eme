@@ -1,0 +1,11 @@
+; > loadFile ./sample/zdk.eme
+
+(=out =x
+  ((["zun" "doko"] sample) "doko" eq) =doko_b
+    ("zun"      out cons) =z
+      ("doko"     out cons) =d
+        ("ki-yo-shi!" d cons) =k
+          ((x 1 +) z zdk)
+            (0       d zdk)
+              ((doko_b ?) k ((3 x <) doko_b &&) ?)) >zdk ; z-d-k z-d-k が美しい
+0 [] zdk
