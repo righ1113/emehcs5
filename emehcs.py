@@ -29,7 +29,6 @@ class Emehcs(EmehcsBase):
     return self.stack.pop()
 
 if __name__ == '__main__':
-  emehcs = Emehcs()
-  repl   = Repl(emehcs)
+  repl = Repl(Emehcs())
   repl.prelude()
   repl.repl()

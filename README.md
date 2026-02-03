@@ -6,3 +6,4 @@
 - シンプルな実装を心掛けています。
 - 予約語は = > | @ ( ) [ ] ; です(プリミティブ関数除く)。
 - プリミティブ関数は [lib/emehcs_base.py](lib/emehcs_base.py) に一覧があります。
+- プレリュード関数は [data/prelude.eme](data/prelude.eme) に一覧があります。
