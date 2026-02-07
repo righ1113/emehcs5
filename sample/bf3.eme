@@ -16,14 +16,14 @@
   (mem mar !!)       =mem_v
   (0 "{" -1 0   (pc 1 -) pro #) >move_pc2
   (0 "}"  1 max (pc 1 +) pro #) >move_pc1
-                  (max pro mar       mem               pc out                    ^)
-    ((move_pc2 =c2 max pro mar       mem               c2 out                    ^) ((mem_v 0 !=) (op "}" eq) &&) ?)
-    ((move_pc1 =c1 max pro mar       mem               c1 out                    ^) ((mem_v 0 eq) (op "{" eq) &&) ?)
-    (             (max pro mar       mem               pc ((mem_v chr) out cons) ^)               (op "." eq)     ?)
-    (             (max pro mar       (mem mar -1 up_p) pc out                    ^)               (op "-" eq)     ?)
-    (             (max pro mar       (mem mar  1 up_p) pc out                    ^)               (op "+" eq)     ?)
-    (             (max pro (mar 1 -) mem               pc out                    ^)               (op "<" eq)     ?)
-    (             (max pro (mar 1 +) mem               pc out                    ^)               (op "r" eq)     ?)) >bf
+     (max pro mar       mem               pc                          out                    ^)
+    ((max pro mar       mem               move_pc2 =c2 >free >free c2 out                    ^) ((mem_v 0 !=) (op "}" eq) &&) ?)
+    ((max pro mar       mem               move_pc1 =c1 >free >free c1 out                    ^) ((mem_v 0 eq) (op "{" eq) &&) ?)
+    ((max pro mar       mem               pc                          ((mem_v chr) out cons) ^)               (op "." eq)     ?)
+    ((max pro mar       (mem mar -1 up_p) pc                          out                    ^)               (op "-" eq)     ?)
+    ((max pro mar       (mem mar  1 up_p) pc                          out                    ^)               (op "+" eq)     ?)
+    ((max pro (mar 1 -) mem               pc                          out                    ^)               (op "<" eq)     ?)
+    ((max pro (mar 1 +) mem               pc                          out                    ^)               (op "r" eq)     ?)) >bf
 
 "++++++++{r++++{r++r+++r+++r+<<<<-}r+r+r-rr+{<}<-}rr.r---.+++++++..+++.rr.<-.<.+++.------.--------.rr+.r++." =c
 c 0 [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] 0 [] bf
