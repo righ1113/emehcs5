@@ -1,7 +1,8 @@
 (=d =m =x m (x d mod) eq) >modBase
-(0 2 modBase) >even?
-(0 3 modBase) >0mod3?
-(0 5 modBase) >0mod5?
+(0  2 modBase) >even?
+(0  3 modBase) >0mod3?
+(0  5 modBase) >0mod5?
+(0 15 modBase) >0mod15?
 
 (=out =inp
   ((inp cdr) ((inp car) out cons) reverse0)

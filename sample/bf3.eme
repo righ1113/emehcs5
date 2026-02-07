@@ -1,0 +1,29 @@
+; > loadFile ./sample/bf3.eme
+
+(=pro =i =stop =sign =brk =d
+  (pro i !!) =pro_i
+    ; 関数合成を二段階使っている
+      ((d (d sign -) (pro_i "}" eq) ?) (d sign +) (pro_i "{" eq) ?)
+        (brk sign stop (i sign +) pro #)
+          (("pro_edge!!!" error) (i stop eq) ?) i ((d 0 eq) (pro_i brk eq) &&) ?) >#
+
+(=_out =_pc =_mem =_mar
+  (pro _mar _mem (_pc 1 +) _out bf) _out (_pc max eq) ?) >^
+
+(=out =pc =mem =mar =pro
+  ((pro length) 1 -) =max
+  (pro pc  !!)       =op
+  (mem mar !!)       =mem_v
+  (0 "{" -1 0   (pc 1 -) pro #) >move_pc2
+  (0 "}"  1 max (pc 1 +) pro #) >move_pc1
+                   (mar       mem               pc out                    ^)
+    ((move_pc2 =c2 (mar       mem               c2 out                    ^)) ((mem_v 0 !=) (op "}" eq) &&) ?)
+    ((move_pc1 =c1 (mar       mem               c1 out                    ^)) ((mem_v 0 eq) (op "{" eq) &&) ?)
+    (              (mar       mem               pc ((mem_v chr) out cons) ^)                (op "." eq)     ?)
+    (              (mar       (mem mar -1 up_p) pc out                    ^)                (op "-" eq)     ?)
+    (              (mar       (mem mar  1 up_p) pc out                    ^)                (op "+" eq)     ?)
+    (              ((mar 1 -) mem               pc out                    ^)                (op "<" eq)     ?)
+    (              ((mar 1 +) mem               pc out                    ^)                (op "r" eq)     ?)) >bf
+
+"++++++++{r++++{r++r+++r+++r+<<<<-}r+r+r-rr+{<}<-}rr.r---.+++++++..+++.rr.<-.<.+++.------.--------.rr+.r++." =c
+c 0 [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] 0 [] bf
