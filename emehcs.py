@@ -7,6 +7,7 @@ from   lib.repl        import Repl
 # やっぱ継承だよね
 class Emehcs(EmehcsBase):
   def run(self, code: list[lib.const.Expr]) -> lib.const.Expr:
+    if code == [[]]: return []
     for idx, x in enumerate(code):
       em = idx == (len(code) - 1)
       if lib.const.debug_flg and (x == '+@' or x == '-@'): print(f'{idx=}, {x=}')
